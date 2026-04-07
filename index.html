@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy Onboard — Streamlined Employee Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-400: #60a5fa;
+  --blue-500: #0d6efd;
+  --blue-600: #0b5ed7;
+  --blue-700: #0a4fc2;
+  --blue-800: #1e3a5f;
+  --blue-900: #0f2440;
+  --blue-950: #091628;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --white: #ffffff;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(13,110,253,0.08);
+  --shadow-lg: 0 12px 40px rgba(13,110,253,0.12);
+  --shadow-xl: 0 20px 60px rgba(13,110,253,0.15);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--slate-700);
+  line-height: 1.65;
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  transition: background 0.4s, box-shadow 0.4s, padding 0.4s;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  color: var(--blue-900);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--blue-500);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  box-shadow: 0 2px 8px rgba(13,110,253,0.3);
+}
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--slate-600);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--blue-500); }
+.nav-cta {
+  background: var(--blue-500) !important;
+  color: var(--white) !important;
+  padding: 0.55rem 1.3rem !important;
+  border-radius: 9px !important;
+  font-weight: 600 !important;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s !important;
+  box-shadow: 0 2px 8px rgba(13,110,253,0.25);
+}
+.nav-cta:hover {
+  background: var(--blue-600) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(13,110,253,0.35) !important;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: var(--slate-700);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--blue-950) 0%, var(--blue-900) 35%, var(--blue-800) 100%);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-bg .orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+.hero-bg .orb-1 {
+  width: 600px; height: 600px;
+  background: var(--blue-500);
+  top: -15%; right: -10%;
+  animation-delay: 0s;
+}
+.hero-bg .orb-2 {
+  width: 400px; height: 400px;
+  background: var(--blue-400);
+  bottom: -10%; left: -5%;
+  animation-delay: -4s;
+}
+.hero-bg .orb-3 {
+  width: 250px; height: 250px;
+  background: var(--blue-200);
+  top: 40%; left: 50%;
+  opacity: 0.12;
+  animation-delay: -8s;
+}
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -40px) scale(1.08); }
+}
+
+/* grid pattern */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.hero-text { max-width: 580px; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  color: var(--blue-200);
+  font-weight: 500;
+  margin-bottom: 1.8rem;
+  backdrop-filter: blur(8px);
+}
+.hero-badge .dot {
+  width: 7px; height: 7px;
+  background: #34d399;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.4rem;
+}
+.hero h1 .highlight {
+  color: var(--blue-400);
+  font-style: italic;
+}
+.hero p {
+  font-size: 1.12rem;
+  color: var(--blue-200);
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+  max-width: 480px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.8rem;
+  border-radius: 11px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.btn-primary {
+  background: var(--blue-500);
+  color: var(--white);
+  box-shadow: 0 4px 20px rgba(13,110,253,0.35);
+}
+.btn-primary:hover {
+  background: var(--blue-600);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(13,110,253,0.45);
+}
+.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-2px);
+}
+
+/* hero visual card */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard-preview {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 1.6rem;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+}
+.dp-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+.dp-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.dp-dot:nth-child(1) { background: #ff5f57; }
+.dp-dot:nth-child(2) { background: #ffbd2e; }
+.dp-dot:nth-child(3) { background: #28c840; }
+.dp-title {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+.dp-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.dp-stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 1rem;
+}
+.dp-stat-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+.dp-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+}
+.dp-stat-value.green { color: #34d399; }
+.dp-stat-value.blue { color: var(--blue-400); }
+.dp-progress-rows { display: flex; flex-direction: column; gap: 0.65rem; }
+.dp-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.dp-row-avatar {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.dp-row-name {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  flex: 1;
+  white-space: nowrap;
+}
+.dp-row-bar {
+  flex: 1.5;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.dp-row-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1.5s ease;
+}
+.dp-row-pct {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  width: 36px;
+  text-align: right;
+  font-weight: 600;
+}
+
+/* ── SECTION COMMON ── */
+section { padding: 6rem 2rem; }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue-500);
+  margin-bottom: 1rem;
+}
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: var(--blue-500);
+  border-radius: 2px;
+}
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--blue-900);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--slate-500);
+  max-width: 580px;
+  line-height: 1.7;
+}
+
+/* ── WHO WE ARE ── */
+.about {
+  background: var(--white);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+.about-visual {
+  position: relative;
+}
+.about-card {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+}
+.about-card-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 16px rgba(13,110,253,0.2);
+}
+.about-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--blue-900);
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+.about-card p {
+  color: var(--slate-500);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.about-floating {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: 14px;
+  padding: 1rem 1.3rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.about-floating .check {
+  width: 32px; height: 32px;
+  background: #dcfce7;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-floating span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+.about-floating small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--slate-400);
+  font-weight: 400;
+}
+.about-text .section-sub {
+  margin-bottom: 1.8rem;
+}
+.about-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.about-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--slate-600);
+}
+.about-point-icon {
+  width: 24px; height: 24px;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── FEATURES ── */
+.features {
+  background: var(--slate-50);
+  position: relative;
+}
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--slate-200), transparent);
+}
+.features-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.features-header .section-sub {
+  margin: 0 auto;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s, border-color 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue-500), var(--blue-400));
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--blue-200);
+}
+.feature-card:hover::before { opacity: 1; }
+.feature-icon {
+  width: 50px; height: 50px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--blue-900);
+  margin-bottom: 0.5rem;
+}
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--slate-500);
+  line-height: 1.7;
+}
+
+.fi-blue { background: var(--blue-50); border: 1px solid var(--blue-100); }
+.fi-emerald { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.fi-amber { background: #fffbeb; border: 1px solid #fde68a; }
+.fi-purple { background: #f5f3ff; border: 1px solid #ddd6fe; }
+.fi-rose { background: #fff1f2; border: 1px solid #fecdd3; }
+.fi-teal { background: #f0fdfa; border: 1px solid #99f6e4; }
+
+/* ── CONTACT ── */
+.contact {
+  background: var(--white);
+  position: relative;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--slate-200), transparent);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  margin-top: 3rem;
+}
+.contact-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--blue-900);
+  margin-bottom: 0.8rem;
+}
+.contact-info > p {
+  color: var(--slate-500);
+  font-size: 0.95rem;
+  margin-bottom: 2.2rem;
+  line-height: 1.7;
+}
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.contact-detail-icon {
+  width: 44px; height: 44px;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.contact-detail span {
+  font-size: 0.92rem;
+  color: var(--slate-600);
+  font-weight: 500;
+}
+.contact-detail small {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--slate-400);
+  font-weight: 400;
+}
+.contact-form-wrap {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 2.2rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group { margin-bottom: 1rem; }
+.form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  margin-bottom: 0.4rem;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--slate-700);
+  background: var(--white);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: var(--slate-400); }
+.btn-submit {
+  width: 100%;
+  justify-content: center;
+  padding: 0.9rem;
+  font-size: 1rem;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--blue-950);
+  padding: 3rem 2rem;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footer-logo .logo-icon {
+  width: 28px; height: 28px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+.footer p {
+  font-size: 0.82rem;
+  color: var(--slate-400);
+}
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 0.82rem;
+  color: var(--slate-400);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ── ANIMATIONS ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-text { max-width: 100%; }
+  .hero p { margin-left: auto; margin-right: auto; }
+  .hero-buttons { justify-content: center; }
+  .hero-visual { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-visual { order: -1; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    gap: 1rem;
+  }
+  .hamburger { display: flex; }
+  .features-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  section { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">EO</div>
+      Easy Onboard
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Who We Are</a></li>
+      <li><a href="#features">What We Offer</a></li>
+      <li><a href="#contact" class="nav-cta">Get In Touch</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge"><span class="dot"></span> Built for teams that value structure</div>
+      <h1>Onboarding,<br><span class="highlight">simplified.</span></h1>
+      <p>Replace scattered spreadsheets and long email chains with a single portal that guides every new hire from day one to full productivity.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          Get In Touch
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#features" class="btn btn-ghost">See Features</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="dashboard-preview">
+        <div class="dp-header">
+          <span class="dp-dot"></span>
+          <span class="dp-dot"></span>
+          <span class="dp-dot"></span>
+          <span class="dp-title">HR Dashboard</span>
+        </div>
+        <div class="dp-stats">
+          <div class="dp-stat">
+            <div class="dp-stat-label">Active Hires</div>
+            <div class="dp-stat-value blue">24</div>
+          </div>
+          <div class="dp-stat">
+            <div class="dp-stat-label">Completion</div>
+            <div class="dp-stat-value green">87%</div>
+          </div>
+        </div>
+        <div class="dp-progress-rows">
+          <div class="dp-row">
+            <div class="dp-row-avatar" style="background:#6366f1">SM</div>
+            <span class="dp-row-name">S. Murphy</span>
+            <div class="dp-row-bar"><div class="dp-row-fill" style="width:92%;background:linear-gradient(90deg,#34d399,#6ee7b7)"></div></div>
+            <span class="dp-row-pct">92%</span>
+          </div>
+          <div class="dp-row">
+            <div class="dp-row-avatar" style="background:#f59e0b">AK</div>
+            <span class="dp-row-name">A. Kelly</span>
+            <div class="dp-row-bar"><div class="dp-row-fill" style="width:71%;background:linear-gradient(90deg,var(--blue-500),var(--blue-400))"></div></div>
+            <span class="dp-row-pct">71%</span>
+          </div>
+          <div class="dp-row">
+            <div class="dp-row-avatar" style="background:#ec4899">JB</div>
+            <span class="dp-row-name">J. Byrne</span>
+            <div class="dp-row-bar"><div class="dp-row-fill" style="width:45%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+            <span class="dp-row-pct">45%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHO WE ARE ── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="section-label">Who We Are</div>
+    <div class="section-heading reveal">Structure without complexity</div>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="4" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <h3>One portal. Every workflow.</h3>
+          <p>Easy Onboard brings HR administration, onboarding checklists, IT asset tracking, and internal documentation into a single, self-hosted Django application your team can rely on.</p>
+        </div>
+        <div class="about-floating">
+          <div class="check">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <span>Onboarding complete</span>
+            <small>Sarah M. — just now</small>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-sub reveal">
+          Easy Onboard was born out of frustration with the patchwork of tools teams cobble together for new hires — a shared drive here, a task list there, and a dozen emails in between. We built a purpose-designed portal so everything lives in one place.
+        </div>
+        <div class="about-points reveal">
+          <div class="about-point">
+            <div class="about-point-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Deployed inside your own infrastructure — your data stays yours</span>
+          </div>
+          <div class="about-point">
+            <div class="about-point-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Built with Django — proven, maintainable, and easy to extend</span>
+          </div>
+          <div class="about-point">
+            <div class="about-point-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>Designed for SMBs who want structure without enterprise complexity</span>
+          </div>
+          <div class="about-point">
+            <div class="about-point-icon">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 8l3 3 5-5" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span>HR, IT, and employees all work from the same source of truth</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <div class="section-label">What We Offer</div>
+      <div class="section-heading reveal">Everything your team needs,<br>nothing it doesn't</div>
+      <p class="section-sub reveal">Six focused modules that cover the full onboarding lifecycle — from the moment an offer is signed to the day your new hire is fully productive.</p>
+    </div>
+    <div class="features-grid">
+
+      <!-- 1 HR Dashboard -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="#0d6efd" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="2" stroke="#0d6efd" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="2" stroke="#0d6efd" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="2" stroke="#0d6efd" stroke-width="2"/></svg>
+        </div>
+        <h3>HR Dashboard</h3>
+        <p>Manage employees, departments, and workflows from a single command centre. See headcount, track status, and stay on top of every detail.</p>
+      </div>
+
+      <!-- 2 Employee Onboarding -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-emerald">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Employee Onboarding</h3>
+        <p>Assign tailored workflows with trackable steps employees can check off themselves. Everyone knows exactly what's expected and when.</p>
+      </div>
+
+      <!-- 3 IT Asset Tracking -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#d97706" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="#d97706" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>IT Asset Tracking</h3>
+        <p>Full hardware inventory with status tracking and employee assignment. Know exactly who has what, and what's available for the next hire.</p>
+      </div>
+
+      <!-- 4 Permission Management -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#7c3aed" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="#7c3aed"/></svg>
+        </div>
+        <h3>Permission Management</h3>
+        <p>Employees request system access, HR reviews and approves. A clean audit trail for every permission granted or denied.</p>
+      </div>
+
+      <!-- 5 Documentation Hub -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-rose">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="#e11d48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Documentation Hub</h3>
+        <p>Centralised company policies, handbooks, and guides. New hires find answers on their own instead of chasing down colleagues.</p>
+      </div>
+
+      <!-- 6 Reports & Analytics -->
+      <div class="feature-card reveal">
+        <div class="feature-icon fi-teal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Reports &amp; Analytics</h3>
+        <p>Onboarding progress, headcount trends, bottleneck identification, and IT overview — the numbers you need to make informed decisions.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <div class="section-heading reveal">Let's talk about your onboarding</div>
+    <div class="contact-grid">
+
+      <div class="contact-info reveal">
+        <h3>We'd love to hear from you</h3>
+        <p>Whether you're exploring options for your team or ready to get started, drop us a message and we'll be in touch within one business day.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="var(--blue-500)" stroke-width="2"/><path d="M22 6l-10 7L2 6" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <span>hello@easyonboard.io</span>
+            <small>Email us anytime</small>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" stroke="var(--blue-500)" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <span>+353 1 234 5678</span>
+            <small>Mon – Fri, 9am – 6pm</small>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z" stroke="var(--blue-500)" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="var(--blue-500)" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <span>Dublin, Ireland</span>
+            <small>Where we're based</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" placeholder="Jane Murphy">
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" placeholder="jane@company.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">How can we help?</label>
+          <textarea id="message" placeholder="Tell us about your team and what you're looking for…"></textarea>
+        </div>
+        <button class="btn btn-primary btn-submit" onclick="handleSubmit(event)">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon">EO</div>
+      Easy Onboard
+    </div>
+    <p>&copy; 2026 Easy Onboard. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#about">Who We Are</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// ── Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Mobile menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (navLinks.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  }
+});
+
+// Close mobile menu on link click
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    const spans = hamburger.querySelectorAll('span');
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  });
+});
+
+// ── Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Stagger feature cards
+document.querySelectorAll('.feature-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.08}s`;
+});
+
+// ── Contact form
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.currentTarget;
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Message Sent!`;
+  btn.style.background = '#059669';
+  btn.style.boxShadow = '0 4px 20px rgba(5,150,105,0.35)';
+  setTimeout(() => {
+    btn.innerHTML = originalHTML;
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+  }, 2500);
+}
+</script>
+</body>
+</html>
