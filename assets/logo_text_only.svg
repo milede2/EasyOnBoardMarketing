@@ -1,0 +1,7 @@
+<svg width="400" height="80" viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Easy Onboard Wordmark -->
+  <text x="0" y="40" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" letter-spacing="-0.5">
+    <tspan fill="#0d6efd">Easy</tspan><tspan dx="8" fill="#1a1a2e">Onboard</tspan>
+  </text>
+  <text x="2" y="68" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#6c757d" letter-spacing="2.5">EMPLOYEE ONBOARDING PORTAL</text>
+</svg>

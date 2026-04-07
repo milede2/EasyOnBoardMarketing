@@ -1,0 +1,19 @@
+<svg width="600" height="140" viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- Easy Onboard Full Logo -->
+  <g transform="translate(40, 10)">
+    <path d="M62 8 L62 72 L28 72 Z" fill="#0d6efd"/>
+    <path d="M68 28 L68 72 L96 72 Z" fill="#2b85fe"/>
+    <rect x="60" y="6" width="4" height="70" fill="#1a1a2e" rx="2"/>
+    <path d="M10 78 L110 78 L96 108 L24 108 Z" fill="#0d6efd"/>
+    <path d="M16 86 L104 86 L96 108 L24 108 Z" fill="#084298"/>
+    <path d="M10 78 L110 78 L107 84 L13 84 Z" fill="#2b85fe"/>
+    <path d="M0 116 Q15 106 30 116 Q45 126 60 116 Q75 106 90 116 Q105 126 120 116" fill="none" stroke="#0d6efd" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    <path d="M8 128 Q23 118 38 128 Q53 138 68 128 Q83 118 98 128 Q113 138 128 128" fill="none" stroke="#0d6efd" stroke-width="2.5" stroke-linecap="round" opacity="0.25"/>
+  </g>
+  <g transform="translate(185, 52)">
+    <text x="0" y="0" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700" letter-spacing="-0.5">
+      <tspan fill="#0d6efd">Easy</tspan><tspan dx="8" fill="#1a1a2e">Onboard</tspan>
+    </text>
+    <text x="2" y="30" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" fill="#6c757d" letter-spacing="2.5">EMPLOYEE ONBOARDING PORTAL</text>
+  </g>
+</svg>
