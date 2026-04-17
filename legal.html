@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Easy Onboard — Streamlined Employee Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo_icon_only.svg">
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="legal-hero">
+  <div class="container">
+    <div class="section-label">Support</div>
+    <h1 class="section-heading">Help & Legal</h1>
+    <p class="section-sub" style="text-align:center; margin:0 auto;">
+      Everything you need to know about using Easy Onboard, your data, and how we keep it secure.
+    </p>
+  </div>
+</section>
+
+<section class="legal-section" id="help">
+  <div class="container">
+    <div class="section-label">Help Center</div>
+    <div class="section-heading">Getting started</div>
+    <p class="section-sub">
+      Easy Onboard is designed to simplify the employee onboarding process from start to finish. Once a new hire is added to the system, a structured onboarding workflow is automatically assigned, guiding both the employee and internal teams through each required step.
+
+HR teams can manage employee records, assign onboarding tasks, and monitor progress through a central dashboard. IT teams can track asset allocation and handle access requests, while employees can complete tasks, request permissions, and access documentation — all in one place.
+
+For additional support, users can contact our team directly or refer to internal documentation provided within the platform.
+    </p>
+  </div>
+</section>
+
+<section class="legal-section alt" id="privacy">
+  <div class="container">
+    <div class="section-label">Privacy</div>
+    <div class="section-heading">Your data stays yours</div>
+    <p class="section-sub">
+      Easy Onboard is built with privacy as a core principle. All employee and organisational data is stored securely within your own infrastructure, ensuring full control over sensitive information.
+
+We do not sell, share, or use your data for any third-party purposes. Access to data is strictly controlled through role-based permissions, ensuring that only authorised users can view or modify information.
+
+The platform is designed to align with GDPR principles, including data minimisation, purpose limitation, and secure handling of personal data.
+    </p>
+  </div>
+</section>
+
+<section class="legal-section" id="security">
+  <div class="container">
+    <div class="section-label">Security</div>
+    <div class="section-heading">Built with security in mind</div>
+    <p class="section-sub">
+      Security is embedded throughout Easy Onboard's architecture. The platform uses secure authentication mechanisms and role-based access control to ensure that users only access what they are authorised to see.
+
+All actions within the system are logged, providing a clear audit trail for onboarding activities, permissions, and changes. This ensures accountability and transparency across HR and IT workflows.
+
+Regular updates and best practices in Django development are followed to maintain a secure and reliable system.
+    </p>
+  </div>
+</section>
+
+<section class="legal-section alt" id="terms">
+  <div class="container">
+    <div class="section-label">Terms</div>
+    <div class="section-heading">Usage & responsibilities</div>
+    <p class="section-sub">
+      Easy Onboard is provided as a platform to support internal employee onboarding processes. By using the system, organisations are responsible for ensuring that the data entered is accurate, lawful, and compliant with applicable regulations.
+
+Users must not misuse the platform, attempt to gain unauthorised access, or disrupt system functionality.
+
+While we aim to provide a reliable and secure service, Easy Onboard is offered “as is” without guarantees of uninterrupted availability. Ongoing improvements and updates may be made to enhance performance and functionality.
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">
+      <img src="assets/logo_icon_only.svg" alt="Easy Onboard icon">
+      <span>Easy Onboard</span>
+    </a>
+    <p>&copy; 2026 Easy Onboard. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="index.html">Sail Back Home</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// ── Nav scroll: swap logo + add background
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ── Mobile menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  const spans = hamburger.querySelectorAll('span');
+  if (navLinks.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans[0].style.transform = '';
+    spans[1].style.opacity = '';
+    spans[2].style.transform = '';
+  }
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  });
+});
+
+// ── Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Stagger feature cards
+document.querySelectorAll('.feature-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.08}s`;
+});
+
+// ── Contact form mock submit
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.currentTarget;
+  const originalHTML = btn.innerHTML;
+  btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Message Sent!';
+  btn.style.background = '#059669';
+  btn.style.boxShadow = '0 4px 20px rgba(5,150,105,0.35)';
+  setTimeout(() => {
+    btn.innerHTML = originalHTML;
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+  }, 2500);
+}
+</script>
+</body>
+</html>
